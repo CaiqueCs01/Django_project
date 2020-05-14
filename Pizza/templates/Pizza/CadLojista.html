@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'Pizza/base.html' %}
+{% block content %}
+<body>
+    <div id="div1">
+        <form method="post" class="form-group">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success" >Enviar</button>
+        </form>
+    </div>
+</body>
+{% endblock %}
+</html>

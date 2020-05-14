@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/menu.css' %}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <nav>
+        <div class="nav-wrapper">
+            <a href="" class="brand-logo">PizzariaApp</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li>
+                    <form action="{% url 'Pizza:url_logout' %}" method="post">
+                        {% csrf_token %}
+                        <button id="button" type="submit" >Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="grid-container">
+      <div class="item2" id="div2">
+          <p>Menu</p>
+          <p><a href="{% url 'menu:url_sabores' %}">Sabores</a> </p>
+          <p><a href="{% url 'menu:url_massa' %}">Massas</a></p>
+          <p><a href="{% url 'menu:url_tamanho' %}">Tamanho</a></p>
+
+      </div>
+      <div class="item3"></div>
+{% block content %}
+{% endblock %}
+    </div>
+</body>
+</html>

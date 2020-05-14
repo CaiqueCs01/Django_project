@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'menu/base_menu.html' %}
+{% block content %}
+<body>
+    <div class="item3">
+        <form method="post" class="form-group" action="{% url 'menu:url_massa' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Enviar</button>
+        </form>
+
+    </div>
+</body>
+{% endblock %}
+</html>

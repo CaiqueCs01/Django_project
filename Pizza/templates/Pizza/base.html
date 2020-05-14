@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="" class="brand-logo">PizzariaApp</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="{% url 'Pizza:url_Registro' %}">Registre-se</a></li>
+                <li><a href="{% url 'Pizza:url_login' %}" >Logar</a></li>
+                <li>
+                    <form action="{% url 'Pizza:url_logout' %}" method="post">
+                        {% csrf_token %}
+                        <button id="button" type="submit" >Logout</button>
+                    </form>
+            </ul>
+        </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+<script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+{% extends 'Pizza/base.html' %}
+<body>
+    {% block content %}
+    <div id="div1">
+        <form method="POST" action="" class="form-group">
+            {% csrf_token %}
+            {{form.as_p}}
+            <p>
+              <label>
+                <input name="tipo" type="radio" />
+                <span>Consumidor</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input name="tipo" type="radio" />
+                <span>Lojista</span>
+              </label>
+            </p>
+
+            <button type="submit" class="btn btn-success">Enviar</button>
+        </form>
+    </div>
+    {% endblock %}
+</body>
+</html>
