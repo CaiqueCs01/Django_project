@@ -4,11 +4,12 @@
 {% block content %}
 <body>
     <div class="item3">
-        <form method="post" class="form-group">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-success">Enviar</button>
-        </form>
+        <ul>
+            {% for tamanho in tamanho %}
+            <li>{{tamanho}}</li>
+            {% endfor %}
+         </ul>
+        <a href="{% url 'menu:url_tamanhoAdd' %}">Adicionar Sabor</a>
     </div>
 </body>
 {% endblock %}

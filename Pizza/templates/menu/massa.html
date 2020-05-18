@@ -4,12 +4,12 @@
 {% block content %}
 <body>
     <div class="item3">
-        <form method="post" class="form-group" action="{% url 'menu:url_massa' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-success">Enviar</button>
-        </form>
-
+        <ul>
+            {% for massa in massa %}
+            <li>{{massa}}</li>
+            {% endfor %}
+         </ul>
+        <a href="{% url 'menu:url_saboresAdd' %}">Adicionar Sabor</a>
     </div>
 </body>
 {% endblock %}

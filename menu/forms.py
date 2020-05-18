@@ -2,7 +2,7 @@ from django.contrib.auth.forms import forms
 from menu.models import Sabores, Massa, TamanhoPizza
 
 
-class SabooresForm(forms.ModelForm):
+class SaboresForm(forms.ModelForm):
     nome = forms.CharField(max_length=30)
     ingredientes = forms.CharField(max_length=200)
 

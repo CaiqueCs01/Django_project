@@ -6,7 +6,7 @@
     <div class="item3">
         <ul>
             {% for sabores in sabores %}
-            <li>{{sabores}}</li>
+            <li><a href="{% url 'menu:url_saborNovo' sabores.id %}">{{sabores}} <a class="close" href="{% url 'menu:url_delete' sabores.id %}">&times;</a></a></li>
             {% endfor %}
          </ul>
         <a href="{% url 'menu:url_saboresAdd' %}">Adicionar Sabor</a>

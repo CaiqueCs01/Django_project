@@ -11,4 +11,8 @@ urlpatterns = [
     path('massa/', views.massa_view, name='url_massa'),
     path('tamanho/', views.tamanho_view, name='url_tamanho'),
     path('saboresAdd/', views.sabores_add, name='url_saboresAdd'),
+    path('massaAdd/', views.massa_add, name='url_massaAdd'),
+    path('tamanhoAdd/', views.tamanho_add, name='url_tamanhoAdd'),
+    path('saboresUp/<int:pk>/', views.sabores_up, name='url_saborNovo'),
+    path('delete/<int:pk>/', views.sabores_del, name='url_delete'),
 ]
