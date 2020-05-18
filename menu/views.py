@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from menu.forms import SabooresForm, MassaForm, TamanhoForm
+from .models import Sabores
 
 
 def menuC(request):
@@ -14,12 +15,18 @@ def test_layout(request):
     return render(request, 'menu/base_menu.html')
 
 
-def sabores_view(request):
+def sabores_add(request):
     form = SabooresForm(request.POST or None)
     if form.is_valid():
         form.save()
         return redirect('menu:url_sabores')
-    return render(request, 'menu/sabores.html', {'form': form})
+    return render(request, 'menu/saboresAdd.html', {'form':form})
+
+
+def sabores_view(request):
+    data = {}
+    data['sabores'] = Sabores.objects.all()
+    return render(request, 'menu/sabores.html', data)
 
 
 def massa_view(request):

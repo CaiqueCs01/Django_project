@@ -4,11 +4,12 @@
 {% block content %}
 <body>
     <div class="item3">
-        <form method="post" class="form-group" action="{% url 'menu:url_sabores' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-success" >Enviar</button>
-        </form>
+        <ul>
+            {% for sabores in sabores %}
+            <li>{{sabores}}</li>
+            {% endfor %}
+         </ul>
+        <a href="{% url 'menu:url_saboresAdd' %}">Adicionar Sabor</a>
     </div>
 </body>
 {% endblock %}

@@ -4,7 +4,7 @@ from django.urls import reverse
 from .forms import CreateUserForm, CadConsumidorForm, CadLojistaForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 
 
 def Registro(request):
@@ -14,13 +14,18 @@ def Registro(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
+            nome = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            account = authenticate(username=nome, password=password)
+            login(request, account)
+            print(request.POST.get('tipo'))
             if request.POST.get('tipo') == 'Consumidor':
                 myGroup = Group.objects.get(name='Consumidor')
                 print(myGroup)
                 print(request.user)
                 myGroup.user_set.add(request.user)
                 form.save()
-                return redirect('Pizza:url_Consu')
+                return redirect('Pizza:url_Consumidor')
             else:
                 myGroup = Group.objects.get(name='Lojista')
                 myGroup.user_set.add(request.user)
