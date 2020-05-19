@@ -6,10 +6,10 @@
     <div class="item3">
         <ul>
             {% for massa in massa %}
-            <li>{{massa}}</li>
+            <li><a href="{% url 'menu:url_massaUp' massa.id %}"> {{massa}}  <a class="close" href="{% url 'menu:url_massaDel' massa.id %}">&times;</a></a></li>
             {% endfor %}
          </ul>
-        <a href="{% url 'menu:url_saboresAdd' %}">Adicionar Sabor</a>
+        <a href="{% url 'menu:url_massaAdd' %}">Adicionar novo tipo de massa.</a>
     </div>
 </body>
 {% endblock %}

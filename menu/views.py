@@ -11,10 +11,6 @@ def menuL(request):
     return render(request, 'menu/menuL.html')
 
 
-def test_layout(request):
-    return render(request, 'menu/base_menu.html')
-
-
 def sabores_add(request):
     form = SaboresForm(request.POST or None)
     if form.is_valid():
@@ -60,9 +56,39 @@ def massa_add(request):
     return render(request, 'menu/massaAdd.html', {'form': form})
 
 
+def massa_up(request, pk):
+    data = {}
+    massaNovo = Massa.objects.get(pk=pk)
+    form = MassaForm(request.POST or None, instance=massaNovo)
+    if form.is_valid():
+        form.save()
+        return redirect('menu:url_massa')
+    data['form'] = form
+    data['massa'] = massaNovo
+    return render(request, 'menu/massaAdd.html', data)
+
+
+def massa_del(request, pk):
+    massa = Massa.objects.get(pk=pk)
+    massa.delete()
+    return redirect('menu:url_massa')
+
+
 def tamanho_view(request):
     data = {'tamanho': TamanhoPizza.objects.all()}
     return render(request, 'menu/tamanho.html', data)
+
+
+def tamanho_up(request, pk):
+    data = {}
+    tamanhoNovo = TamanhoPizza.objects.get(pk=pk)
+    form = TamanhoForm(request.POST or None, instance=tamanhoNovo)
+    if form.is_valid():
+        form.save()
+        return redirect('menu:url_tamanho')
+    data['form'] = form
+    data['tamanho'] = tamanhoNovo
+    return render(request, 'menu/tamanhoAdd.html', data)
 
 
 def tamanho_add(request):
@@ -71,3 +97,9 @@ def tamanho_add(request):
         form.save()
         return redirect('menu:url_tamanho')
     return render(request, 'menu/tamanhoAdd.html', {'form': form})
+
+
+def tamanho_del(request, pk):
+    tamanho = TamanhoPizza.objects.get(pk=pk)
+    tamanho.delete()
+    return redirect('menu:url_tamanho')

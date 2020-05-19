@@ -6,10 +6,10 @@
     <div class="item3">
         <ul>
             {% for tamanho in tamanho %}
-            <li>{{tamanho}}</li>
+            <li><a href="{% url 'menu:url_tamanhoUp' tamanho.id %}">{{tamanho}} -- <a class="close" href="{% url 'menu:url_tamanhoDel' tamanho.id %}">&times;</a></li>
             {% endfor %}
          </ul>
-        <a href="{% url 'menu:url_tamanhoAdd' %}">Adicionar Sabor</a>
+        <a href="{% url 'menu:url_tamanhoAdd' %}">Adicionar tamanho</a>
     </div>
 </body>
 {% endblock %}
