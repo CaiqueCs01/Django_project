@@ -6,3 +6,5 @@ venv
 __init__.py
 
 .gitconfig
+
+*migrations
