@@ -3,10 +3,6 @@ from menu.forms import SaboresForm, MassaForm, TamanhoForm
 from .models import Sabores, Massa, TamanhoPizza
 
 
-def menuC(request):
-    return render(request, 'menu/menuC.html')
-
-
 def menuL(request):
     return render(request, 'menu/menuL.html')
 

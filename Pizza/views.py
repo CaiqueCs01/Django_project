@@ -43,7 +43,7 @@ def CadConsumidor(request):
         instance = form.save(commit=False)
         instance.author = request.user
         instance.save()
-        return redirect('menu:url_menuC')
+        return redirect('pedidos:url_pedidos')
     data['form'] = form
     return render(request, 'Pizza/CadConsumidor.html', data)
 

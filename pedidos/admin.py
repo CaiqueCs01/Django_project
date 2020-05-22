@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import PedirPizza
 
-# Register your models here.
+
+admin.site.register(PedirPizza)
+

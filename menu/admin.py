@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Sabores, Massa, TamanhoPizza
 
-# Register your models here.
+admin.site.register(Sabores)
+admin.site.register(Massa)
+admin.site.register(TamanhoPizza)

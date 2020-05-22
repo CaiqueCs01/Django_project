@@ -22,6 +22,7 @@ from Pizza.views import home_view
 urlpatterns = [
     path('Pizza/', include('Pizza.urls')),
     path('menu/', include('menu.urls')),
+    path('pedidos/', include('pedidos.urls')),
     path('admin/', admin.site.urls),
-    path('', home_view, name='url_home')
+    path('', home_view, name='url_home'),
 ]
