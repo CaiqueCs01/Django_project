@@ -8,6 +8,7 @@ from django.contrib.auth import login, logout, authenticate
 
 
 def Registro(request):
+    """Registra um novo usuário e coloca ele em um dos grupos de permissões"""
     form = CreateUserForm
     #print(request.POST.get('tipo'))
     if request.method == 'POST':
@@ -18,11 +19,8 @@ def Registro(request):
             password = form.cleaned_data.get('password1')
             account = authenticate(username=nome, password=password)
             login(request, account)
-            print(request.POST.get('tipo'))
             if request.POST.get('tipo') == 'Consumidor':
                 myGroup = Group.objects.get(name='Consumidor')
-                print(myGroup)
-                print(request.user)
                 myGroup.user_set.add(request.user)
                 form.save()
                 return redirect('Pizza:url_Consumidor')
@@ -37,6 +35,7 @@ def Registro(request):
 
 
 def CadConsumidor(request):
+    """Cadastra as informções adicionais do usuário/Consumidor"""
     data = {}
     form = CadConsumidorForm(request.POST or None)
     if form.is_valid():
@@ -49,6 +48,7 @@ def CadConsumidor(request):
 
 
 def CadLojista(request):
+    """Cadastra as informções adicionais do usuário/Lojista"""
     form = CadLojistaForm(request.POST or None)
     if form.is_valid():
         instance = form.save(commit=False)
@@ -59,6 +59,7 @@ def CadLojista(request):
 
 
 def loginView(request):
+    """Renderiza a page de login e autentica o usuário."""
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
@@ -72,10 +73,12 @@ def loginView(request):
 
 
 def home_view(request):
+    """Renderiza a page Home"""
     return render(request, 'Pizza/home.html')
 
 
 def logout_view(request):
+    """Faz o logout do usuário"""
     if request.method == 'POST':
         logout(request)
         return redirect('url_home')

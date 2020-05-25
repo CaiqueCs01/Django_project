@@ -4,10 +4,12 @@ from .models import Sabores, Massa, TamanhoPizza
 
 
 def menuL(request):
+    """Renderiza o menu."""
     return render(request, 'menu/menuL.html')
 
 
 def sabores_add(request):
+    """Adiciona um sabor novo ao cardápio"""
     form = SaboresForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -16,12 +18,14 @@ def sabores_add(request):
 
 
 def sabores_view(request):
+    """Mostra a lista de sabores salvos no banco de dados."""
     data = {}
     data['sabores'] = Sabores.objects.all()
     return render(request, 'menu/sabores.html', data)
 
 
 def sabores_up(request, pk):
+    """Permite o usuário fazer alterações nas pizzas e ingredientes."""
     data = {}
     saborNovo = Sabores.objects.get(pk=pk)
     form = SaboresForm(request.POST or None, instance=saborNovo)
@@ -34,17 +38,20 @@ def sabores_up(request, pk):
 
 
 def sabores_del(request, pk):
+    """Deleta um sabor."""
     sabores = Sabores.objects.get(pk=pk)
     sabores.delete()
     return redirect('menu:url_sabores')
 
 
 def massa_view(request):
+    """Mostra a lista de tipos de massas salvos no banco de dados."""
     data = {'massa': Massa.objects.all()}
     return render(request, 'menu/massa.html', data)
 
 
 def massa_add(request):
+    """Adiciona uma massa nova ao cardápio"""
     form = MassaForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -53,6 +60,7 @@ def massa_add(request):
 
 
 def massa_up(request, pk):
+    """Permite o usuário fazer alterações nas massas."""
     data = {}
     massaNovo = Massa.objects.get(pk=pk)
     form = MassaForm(request.POST or None, instance=massaNovo)
@@ -65,17 +73,20 @@ def massa_up(request, pk):
 
 
 def massa_del(request, pk):
+    """Deleta um tipo massa."""
     massa = Massa.objects.get(pk=pk)
     massa.delete()
     return redirect('menu:url_massa')
 
 
 def tamanho_view(request):
+    """Mostra a lista de tamanhos salvos no banco de dados."""
     data = {'tamanho': TamanhoPizza.objects.all()}
     return render(request, 'menu/tamanho.html', data)
 
 
 def tamanho_up(request, pk):
+    """Permite o usuário fazer alterações nos tamanhos das pizzas."""
     data = {}
     tamanhoNovo = TamanhoPizza.objects.get(pk=pk)
     form = TamanhoForm(request.POST or None, instance=tamanhoNovo)
@@ -88,6 +99,7 @@ def tamanho_up(request, pk):
 
 
 def tamanho_add(request):
+    """Adiciona um tamanho novo ao cardápio"""
     form = TamanhoForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -96,6 +108,7 @@ def tamanho_add(request):
 
 
 def tamanho_del(request, pk):
+    """Deleta um tamanho de pizza."""
     tamanho = TamanhoPizza.objects.get(pk=pk)
     tamanho.delete()
     return redirect('menu:url_tamanho')
