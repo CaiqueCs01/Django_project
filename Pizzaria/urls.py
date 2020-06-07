@@ -17,7 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from Pizza.views import home_view
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('Pizza/', include('Pizza.urls')),
@@ -25,4 +26,4 @@ urlpatterns = [
     path('pedidos/', include('pedidos.urls')),
     path('admin/', admin.site.urls),
     path('', home_view, name='url_home'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

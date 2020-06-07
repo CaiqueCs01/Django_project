@@ -4,15 +4,16 @@
 <body>
     Menu do Consumidor aqui!!!!!!!!!
     <div>
-        {% for context in context %}
-            {{context}}--{{context.id}}
+
+        {% for Lojistas in Lojistas %}
+        <ul>
+            <li><a href="{% url 'pedidos:url_profile' Lojistas.id %}">
+                {{Lojistas}}--{{Lojistas.nomePizzaria}}--{{Lojistas.endereço}}</li>
+        </ul>
         {% endfor %}
     </div>
-    <div2>
-        {% for tamanho in tamanho %}
-            {{tamanho}}--{{tamanho.id}}
-        {% endfor %}
-    </div2>
+
+
 
 </body>
 

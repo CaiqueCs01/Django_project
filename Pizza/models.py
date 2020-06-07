@@ -23,11 +23,10 @@ class CadLojista(models.Model):
     diaFuncional = models.CharField(max_length=100, verbose_name='Dias de Funcinamento')
     horaInicio   = models.CharField(max_length=5, verbose_name='Hora de Início')
     horaFinal    = models.CharField(max_length=5, verbose_name='Horário de Fechamento')
-    user     = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
+    user         = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nome
-
 
 
 

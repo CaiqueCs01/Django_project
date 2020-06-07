@@ -1,5 +1,4 @@
 from django.contrib.auth.models import Group
-from django.urls import reverse
 
 from .forms import CreateUserForm, CadConsumidorForm, CadLojistaForm
 from django.shortcuts import render, redirect
@@ -10,7 +9,7 @@ from django.contrib.auth import login, logout, authenticate
 def Registro(request):
     """Registra um novo usuário e coloca ele em um dos grupos de permissões"""
     form = CreateUserForm
-    #print(request.POST.get('tipo'))
+    # print(request.POST.get('tipo'))
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
@@ -63,7 +62,7 @@ def loginView(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
-            #loginuser
+            # loginuser
             user = form.get_user()
             login(request, user)
             return redirect('url_home')
@@ -82,4 +81,3 @@ def logout_view(request):
     if request.method == 'POST':
         logout(request)
         return redirect('url_home')
-

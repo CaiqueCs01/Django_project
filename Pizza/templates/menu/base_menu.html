@@ -38,6 +38,7 @@
     <div class="grid-container">
       <div class="item2" id="div2">
           <p>Menu</p>
+          <p>{{request.user.username}}</p>
           <p><a href="{% url 'menu:url_sabores' %}">Sabores</a> </p>
           <p><a href="{% url 'menu:url_massa' %}">Massas</a></p>
           <p><a href="{% url 'menu:url_tamanho' %}">Tamanho</a></p>

@@ -1,12 +1,19 @@
 from django.db import models
+from Pizza.models import CadLojista
 
 
 class Sabores(models.Model):
     nome         = models.CharField(max_length=20, unique=True)
     ingredientes = models.CharField(max_length=300)
+    preco        = models.DecimalField(decimal_places=2, max_digits=10, default=29.99)
+    image        = models.ImageField(upload_to='static/images/', blank=True)
+    lojista      = models.ForeignKey(CadLojista, default=11, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nome
+
+    def get_preco(self):
+        return self.preco
 
 
 class Massa(models.Model):

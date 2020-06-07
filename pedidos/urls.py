@@ -4,6 +4,6 @@ from . import views
 app_name = 'pedidos'
 
 urlpatterns = [
-    path('pedidos/', views.pedir_view, name='url_pedidos'),
+    path('profile/<int:pk>/', views.profile, name='url_profile'),
 ]
 
