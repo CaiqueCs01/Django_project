@@ -1,4 +1,5 @@
 from django.contrib.auth.models import Group
+from django.http import HttpResponseRedirect
 
 from .forms import CreateUserForm, CadConsumidorForm, CadLojistaForm
 from django.shortcuts import render, redirect
@@ -41,7 +42,7 @@ def CadConsumidor(request):
         instance = form.save(commit=False)
         instance.author = request.user
         instance.save()
-        return redirect('pedidos:url_pedidos')
+        return redirect('pedidos:url_profile')
     data['form'] = form
     return render(request, 'Pizza/CadConsumidor.html', data)
 
@@ -65,7 +66,15 @@ def loginView(request):
             # loginuser
             user = form.get_user()
             login(request, user)
-            return redirect('url_home')
+            usergroup = None
+            if request.user.is_authenticated:
+                usergroup = request.user.groups.values_list()
+                print(usergroup)
+            if usergroup == "Lojista":
+                return redirect('menu:url_menuL')
+            elif usergroup == "":
+                return redirect('url_home')
+
     else:
         form = AuthenticationForm()
     return render(request, 'Pizza/login.html', {'form': form})

@@ -13,13 +13,18 @@
         <div class="nav-wrapper">
             <a href="" class="brand-logo">PizzariaApp</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="{% url 'Pizza:url_Registro' %}">Registre-se</a></li>
-                <li><a href="{% url 'Pizza:url_login' %}" >Logar</a></li>
-                <li>
-                    <form action="{% url 'Pizza:url_logout' %}" method="post">
+                {% if user.is_authenticated %}
+                     <li>User: {{ user.get_username }}</li>
+                      <li>
+                        <form action="{% url 'Pizza:url_logout' %}" method="post">
                         {% csrf_token %}
                         <button id="button" type="submit" >Logout</button>
-                    </form>
+                        </form>
+                      </li>
+                {% else %}
+                     <li><a href="{% url 'Pizza:url_Registro' %}">Registre-se</a></li>
+                     <li><a href="{% url 'Pizza:url_login'%}?next={{request.path}}">Login</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>

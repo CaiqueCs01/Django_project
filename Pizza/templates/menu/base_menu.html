@@ -25,12 +25,18 @@
         <div class="nav-wrapper">
             <a href="" class="brand-logo">PizzariaApp</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li>
-                    <form action="{% url 'Pizza:url_logout' %}" method="post">
+                {% if user.is_authenticated %}
+                     <li>Usuário:  {{ user.get_username }}</li>
+                      <li>
+                        <form action="{% url 'Pizza:url_logout' %}" method="post">
                         {% csrf_token %}
-                        <button id="button" type="submit" >Logout</button>
-                    </form>
-                </li>
+                        <button id="button" type="submit" > Logout</button>
+                        </form>
+                      </li>
+                {% else %}
+                     <li><a href="{% url 'Pizza:url_Registro' %}">Registre-se</a></li>
+                     <li><a href="{% url 'Pizza:url_login'%}?next={{request.path}}">Login</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>
@@ -38,11 +44,9 @@
     <div class="grid-container">
       <div class="item2" id="div2">
           <p>Menu</p>
-          <p>{{request.user.username}}</p>
           <p><a href="{% url 'menu:url_sabores' %}">Sabores</a> </p>
           <p><a href="{% url 'menu:url_massa' %}">Massas</a></p>
           <p><a href="{% url 'menu:url_tamanho' %}">Tamanho</a></p>
-
       </div>
       <div class="item3"></div>
 {% block content %}
