@@ -1,15 +1,22 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from menu.models import Sabores, TamanhoPizza
 from Pizza.models import CadLojista
 
 
-def profile(request, pk):
+def profile(request):
     """Fazer o pedido da pizza."""
     data = {}
-    profile_lojista = CadLojista.objects.get(pk=pk)
-    data['profile'] = profile_lojista
+    profile_lojista = CadLojista.objects.all()
+    data['Lojistas'] = profile_lojista
     return render(request, 'pedidos/menuC.html', data)
 
+
+def test(request, pk):
+    data = {}
+    test = CadLojista.objects.get(pk=pk)
+    data['test'] = test
+    return render(request, 'pedidos/menuC.html', data)
 
 """
 def pedir_view(request):
@@ -35,3 +42,6 @@ def procurar_view(request):
         template = 'pedidos/menuC.html'
     return render(request, template, data)
 
+
+def siderbar(request):
+    return render(request, 'pedidos/sidebar.html')

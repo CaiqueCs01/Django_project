@@ -2,12 +2,39 @@
 <html lang="en">
 
 <body>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="" class="brand-logo">PizzariaApp</a>
+            <div>
+                <form  class="form-group" role="search" action="{% url 'pedidos:url_procurar' %}">
+                    <input type="text" placeholder="Procurar" name="procurar">
+                    <button type="submit" class="btn btn-success">Enviar</button>
+                </form>
+            </div>
+        </div>
+        <div class="nav-wrapper">
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                {% if user.is_authenticated %}
+                     <li>Usuário:  {{ user.get_username }}</li>
+                      <li>
+                        <form action="{% url 'Pizza:url_logout' %}" method="post">
+                        {% csrf_token %}
+                        <button id="button" type="submit" > Logout</button>
+                        </form>
+                      </li>
+                {% else %}
+                     <li><a href="{% url 'Pizza:url_Registro' %}">Registre-se</a></li>
+                     <li><a href="{% url 'Pizza:url_login'%}?next={{request.path}}">Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
     Menu do Consumidor aqui!!!!!!!!!
     <div>
 
         {% for Lojistas in Lojistas %}
         <ul>
-            <li><a href="{% url 'pedidos:url_profile' Lojistas.id %}">
+            <li>
                 {{Lojistas}}--{{Lojistas.nomePizzaria}}--{{Lojistas.endereço}}</li>
         </ul>
         {% endfor %}

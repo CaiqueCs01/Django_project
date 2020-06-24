@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.http import HttpResponseRedirect
 
 from .forms import CreateUserForm, CadConsumidorForm, CadLojistaForm
@@ -66,14 +66,10 @@ def loginView(request):
             # loginuser
             user = form.get_user()
             login(request, user)
-            usergroup = None
-            if request.user.is_authenticated:
-                usergroup = request.user.groups.values_list()
-                print(usergroup)
-            if usergroup == "Lojista":
-                return redirect('menu:url_menuL')
-            elif usergroup == "":
-                return redirect('url_home')
+            grupo = request.user.groups.values_list('name', flat=True)
+            print(grupo)
+            if grupo == 'Lojista':
+                return render(request, 'menu/menuL.html')
 
     else:
         form = AuthenticationForm()
