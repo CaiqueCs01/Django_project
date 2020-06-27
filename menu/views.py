@@ -3,10 +3,6 @@ from menu.forms import SaboresForm, MassaForm, TamanhoForm
 from .models import Sabores, Massa, TamanhoPizza
 from django.contrib.auth.decorators import login_required
 
-def menuL(request):
-    """Renderiza o menu."""
-    return render(request, 'menu/menuL.html')
-
 
 @login_required(login_url='Pizza:url_login')
 def sabores_add(request):
@@ -18,6 +14,7 @@ def sabores_add(request):
     return render(request, 'menu/saboresAdd.html', {'form': form})
 
 
+@login_required(login_url='Pizza:url_login')
 def sabores_view(request):
     """Mostra a lista de sabores salvos no banco de dados."""
     data = {}
@@ -25,6 +22,7 @@ def sabores_view(request):
     return render(request, 'menu/sabores.html', data)
 
 
+@login_required(login_url='Pizza:url_login')
 def sabores_up(request, pk):
     """Permite o usuário fazer alterações nas pizzas e ingredientes."""
     data = {}
@@ -45,12 +43,14 @@ def sabores_del(request, pk):
     return redirect('menu:url_sabores')
 
 
+@login_required(login_url='Pizza:url_login')
 def massa_view(request):
     """Mostra a lista de tipos de massas salvos no banco de dados."""
     data = {'massa': Massa.objects.all()}
     return render(request, 'menu/massa.html', data)
 
 
+@login_required(login_url='Pizza:url_login')
 def massa_add(request):
     """Adiciona uma massa nova ao cardápio"""
     form = MassaForm(request.POST or None)
@@ -60,6 +60,7 @@ def massa_add(request):
     return render(request, 'menu/massaAdd.html', {'form': form})
 
 
+@login_required(login_url='Pizza:url_login')
 def massa_up(request, pk):
     """Permite o usuário fazer alterações nas massas."""
     data = {}
@@ -80,12 +81,14 @@ def massa_del(request, pk):
     return redirect('menu:url_massa')
 
 
+@login_required(login_url='Pizza:url_login')
 def tamanho_view(request):
     """Mostra a lista de tamanhos salvos no banco de dados."""
     data = {'tamanho': TamanhoPizza.objects.all()}
     return render(request, 'menu/tamanho.html', data)
 
 
+@login_required(login_url='Pizza:url_login')
 def tamanho_up(request, pk):
     """Permite o usuário fazer alterações nos tamanhos das pizzas."""
     data = {}
@@ -99,6 +102,7 @@ def tamanho_up(request, pk):
     return render(request, 'menu/tamanhoAdd.html', data)
 
 
+@login_required(login_url='Pizza:url_login')
 def tamanho_add(request):
     """Adiciona um tamanho novo ao cardápio"""
     form = TamanhoForm(request.POST or None)

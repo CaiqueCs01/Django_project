@@ -55,7 +55,7 @@ def CadLojista(request):
         instance = form.save(commit=False)
         instance.author = request.user
         instance.save()
-        return redirect('menu:url_menuL')
+        return redirect('menu:url_sabores')
     return render(request, "Pizza/CadLojista.html", {'form': form})
 
 
@@ -69,7 +69,7 @@ def loginView(request):
             login(request, user)
             group = request.user.groups.filter(user=request.user)[0]
             if group.name == "Lojista":
-                return HttpResponseRedirect(reverse('menu:url_menuL'))
+                return HttpResponseRedirect(reverse('menu:url_sabores'))
             elif group.name == "Consumidor":
                 return HttpResponseRedirect(reverse('teamLeader'))
 
