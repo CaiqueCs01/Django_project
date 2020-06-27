@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from menu.forms import SaboresForm, MassaForm, TamanhoForm
 from .models import Sabores, Massa, TamanhoPizza
-
+from django.contrib.auth.decorators import login_required
 
 def menuL(request):
     """Renderiza o menu."""
     return render(request, 'menu/menuL.html')
 
 
+@login_required(login_url='Pizza:url_login')
 def sabores_add(request):
     """Adiciona um sabor novo ao cardápio"""
     form = SaboresForm(request.POST or None)

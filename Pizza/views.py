@@ -1,5 +1,6 @@
 from django.contrib.auth.models import Group, User
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 from .forms import CreateUserForm, CadConsumidorForm, CadLojistaForm
 from django.shortcuts import render, redirect
@@ -59,17 +60,18 @@ def CadLojista(request):
 
 
 def loginView(request):
-    """Renderiza a page de login e autentica o usuário."""
+    """Loga e autentica o usuário através do grupo de permissão."""
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             # loginuser
             user = form.get_user()
             login(request, user)
-            grupo = request.user.groups.values_list('name', flat=True)
-            print(grupo)
-            if grupo == 'Lojista':
-                return render(request, 'menu/menuL.html')
+            group = request.user.groups.filter(user=request.user)[0]
+            if group.name == "Lojista":
+                return HttpResponseRedirect(reverse('menu:url_menuL'))
+            elif group.name == "Consumidor":
+                return HttpResponseRedirect(reverse('teamLeader'))
 
     else:
         form = AuthenticationForm()

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link type="text/css" rel="stylesheet" href="{% static 'css/menu.css' %}" />
-    <link type="text/css" rel="stylesheet" href="{% static 'css/navbar.css' %}" />
+    <link type="text/css" rel="stylesheet" href="{% static 'css/styles.css' %}" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -43,16 +43,14 @@
     </nav>
 
 
-    <div class="grid-container">
+     <div class="grid-container">
       <div class="item2" id="div2">
-          <div class="sidenav">
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#clients">Clients</a>
-          <a href="#contact">Contact</a>
-        </div>
+          <p>Menu</p>
+          <p><a href="{% url 'menu:url_sabores' %}">Sabores</a> </p>
+          <p><a href="{% url 'menu:url_massa' %}">Massas</a></p>
+          <p><a href="{% url 'menu:url_tamanho' %}">Tamanho</a></p>
       </div>
-      <div class="item3"></div>
+
 {% block content %}
 {% endblock %}
     </div>
