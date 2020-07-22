@@ -1,26 +1,65 @@
+from urllib import request
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import F
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView
+from django.views.generic.edit import CreateView
 from django.shortcuts import render, redirect, get_object_or_404
+
+from Pizza.models import CadLojista
 from menu.forms import SaboresForm, MassaForm, TamanhoForm
 from .models import Sabores, Massa, TamanhoPizza
 from django.contrib.auth.decorators import login_required
 
+"""
+class sabores_add(LoginRequiredMixin, CreateView):
+    model = Sabores
+    form_class = SaboresForm
+    success_url = reverse_lazy('menu/saboresAdd')
 
+    def form_valid(self, form):
+        usuario = request.user.id
+        form.instance.lojistas = usuario
+        url = super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
+
+
+"""
 @login_required(login_url='Pizza:url_login')
 def sabores_add(request):
-    """Adiciona um sabor novo ao cardápio"""
+    "Adiciona um sabor novo ao cardápio"
     form = SaboresForm(request.POST or None)
     if form.is_valid():
-        form.save()
+        instance = form.save(commit=False)
+        instance.lojistas_id = request.user.id
+        print(instance.lojistas_id)
+        instance.save()
         return redirect('menu:url_sabores')
     return render(request, 'menu/saboresAdd.html', {'form': form})
 
 
-@login_required(login_url='Pizza:url_login')
+class SaborList(LoginRequiredMixin, ListView):
+
+    model = Sabores
+
+    template_name = 'menu/sabores2.html'
+
+    def get_queryset(self):
+        # O object_list armazena uma lista de objetos de um ListView
+
+        self.object_list = Sabores.objects.filter(lojistas_id=self.request.user.id)
+
+        return self.object_list
+
+"""
 def sabores_view(request):
-    """Mostra a lista de sabores salvos no banco de dados."""
+    "Mostra a lista de sabores salvos no banco de dados."
     data = {}
     data['sabores'] = Sabores.objects.all()
     return render(request, 'menu/sabores.html', data)
-
+"""
 
 @login_required(login_url='Pizza:url_login')
 def sabores_up(request, pk):

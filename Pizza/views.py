@@ -71,7 +71,7 @@ def loginView(request):
             if group.name == "Lojista":
                 return HttpResponseRedirect(reverse('menu:url_sabores'))
             elif group.name == "Consumidor":
-                return HttpResponseRedirect(reverse('teamLeader'))
+                return HttpResponseRedirect(reverse('teamLeade0r'))
 
     else:
         form = AuthenticationForm()
