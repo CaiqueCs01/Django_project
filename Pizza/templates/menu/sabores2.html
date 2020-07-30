@@ -3,6 +3,7 @@
 {% block content %}
 <body>
     <div class="item3">
+
         {% for object_list in object_list %}
         <ul>
             <li><a href="{% url 'menu:url_saborNovo' object_list.id %}">{{object_list.nome}}<a class="close" href="{% url 'menu:url_delete' object_list.id %}">&times;</a></a></li>

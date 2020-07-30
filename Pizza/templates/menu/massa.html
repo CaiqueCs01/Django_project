@@ -5,8 +5,8 @@
 <body>
     <div class="item3">
         <ul>
-            {% for massa in massa %}
-            <li><a href="{% url 'menu:url_massaUp' massa.id %}"> {{massa}}  <a class="close" href="{% url 'menu:url_massaDel' massa.id %}">&times;</a></a></li>
+            {% for object_list in object_list %}
+            <li><a href="{% url 'menu:url_massaUp' object_list.id %}"> {{object_list}}  <a class="close" href="{% url 'menu:url_massaDel' object_list.id %}">&times;</a></a></li>
             {% endfor %}
          </ul>
         <a href="{% url 'menu:url_massaAdd' %}">Adicionar novo tipo de massa.</a>

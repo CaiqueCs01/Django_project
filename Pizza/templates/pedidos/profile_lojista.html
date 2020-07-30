@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-{{ profile.id }}
+{{ test.id }}--{{test.nome}}--{{pizza.id}}
+
+
+    {% for pizza in pizza %}
+        {{pizza.nome}}
+    {% endfor %}
 </body>
 </html>

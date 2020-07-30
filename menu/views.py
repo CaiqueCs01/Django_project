@@ -1,4 +1,4 @@
-from urllib import request
+
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import F
@@ -13,28 +13,16 @@ from menu.forms import SaboresForm, MassaForm, TamanhoForm
 from .models import Sabores, Massa, TamanhoPizza
 from django.contrib.auth.decorators import login_required
 
-"""
-class sabores_add(LoginRequiredMixin, CreateView):
-    model = Sabores
-    form_class = SaboresForm
-    success_url = reverse_lazy('menu/saboresAdd')
 
-    def form_valid(self, form):
-        usuario = request.user.id
-        form.instance.lojistas = usuario
-        url = super().form_valid(form)
-        return HttpResponseRedirect(self.get_success_url())
-
-
-"""
 @login_required(login_url='Pizza:url_login')
 def sabores_add(request):
     "Adiciona um sabor novo ao cardápio"
     form = SaboresForm(request.POST or None)
     if form.is_valid():
         instance = form.save(commit=False)
-        instance.lojistas_id = request.user.id
-        print(instance.lojistas_id)
+        test = CadLojista.objects.get(nome=request.user)
+        instance.lojistas_id_id = test.id
+
         instance.save()
         return redirect('menu:url_sabores')
     return render(request, 'menu/saboresAdd.html', {'form': form})
@@ -48,18 +36,14 @@ class SaborList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         # O object_list armazena uma lista de objetos de um ListView
+        test = CadLojista.objects.get(nome=self.request.user)
+        print(test.id)
+        self.object_list = Sabores.objects.filter(lojistas_id_id=test.id)
 
-        self.object_list = Sabores.objects.filter(lojistas_id=self.request.user.id)
+        print(self.request.user.id)
 
         return self.object_list
 
-"""
-def sabores_view(request):
-    "Mostra a lista de sabores salvos no banco de dados."
-    data = {}
-    data['sabores'] = Sabores.objects.all()
-    return render(request, 'menu/sabores.html', data)
-"""
 
 @login_required(login_url='Pizza:url_login')
 def sabores_up(request, pk):
@@ -82,19 +66,28 @@ def sabores_del(request, pk):
     return redirect('menu:url_sabores')
 
 
-@login_required(login_url='Pizza:url_login')
-def massa_view(request):
-    """Mostra a lista de tipos de massas salvos no banco de dados."""
-    data = {'massa': Massa.objects.all()}
-    return render(request, 'menu/massa.html', data)
+class MassaList(LoginRequiredMixin, ListView):
+    model = Massa
+    template_name = 'menu/massa.html'
 
+    def get_queryset(self):
+        # O object_list armazena uma lista de objetos de um ListView
 
+        self.object_list = Massa.objects.filter(lojistas_id=self.request.user.id)
+
+        return self.object_list
+
+"""
+o id do lojista tem que passa para a FK de sabores
+"""
 @login_required(login_url='Pizza:url_login')
 def massa_add(request):
     """Adiciona uma massa nova ao cardápio"""
     form = MassaForm(request.POST or None)
     if form.is_valid():
-        form.save()
+        instance = form.save(commit=False)
+        instance.lojistas_id_id = request.user.id
+        instance.save()
         return redirect('menu:url_massa')
     return render(request, 'menu/massaAdd.html', {'form': form})
 
@@ -120,11 +113,17 @@ def massa_del(request, pk):
     return redirect('menu:url_massa')
 
 
-@login_required(login_url='Pizza:url_login')
-def tamanho_view(request):
-    """Mostra a lista de tamanhos salvos no banco de dados."""
-    data = {'tamanho': TamanhoPizza.objects.all()}
-    return render(request, 'menu/tamanho.html', data)
+class TamanhoList(LoginRequiredMixin, ListView):
+    model = TamanhoPizza
+    template_name = 'menu/tamanho.html'
+
+    def get_queryset(self):
+        # O object_list armazena uma lista de objetos de um ListView
+
+        self.object_list = TamanhoPizza.objects.filter(lojistas_id=self.request.user.id)
+
+        return self.object_list
+
 
 
 @login_required(login_url='Pizza:url_login')
@@ -146,7 +145,9 @@ def tamanho_add(request):
     """Adiciona um tamanho novo ao cardápio"""
     form = TamanhoForm(request.POST or None)
     if form.is_valid():
-        form.save()
+        instance = form.save(commit=False)
+        instance.lojistas_id_id = request.user.id
+        instance.save()
         return redirect('menu:url_tamanho')
     return render(request, 'menu/tamanhoAdd.html', {'form': form})
 

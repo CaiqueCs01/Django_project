@@ -8,6 +8,8 @@ def profile(request):
     """Fazer o pedido da pizza."""
     data = {}
     profile_lojista = CadLojista.objects.all()
+    pizza = Sabores.objects.all()
+    data['pizza'] = pizza
     data['Lojistas'] = profile_lojista
     return render(request, 'pedidos/menuC.html', data)
 
@@ -15,8 +17,10 @@ def profile(request):
 def test(request, pk):
     data = {}
     test = CadLojista.objects.get(pk=pk)
+    pizza = Sabores.objects.filter(lojistas_id_id=pk)
+    data['pizza'] = pizza
     data['test'] = test
-    return render(request, 'pedidos/menuC.html', data)
+    return render(request, 'pedidos/profile_lojista.html', data)
 
 """
 def pedir_view(request):

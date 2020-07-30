@@ -31,11 +31,11 @@
     </nav>
     Menu do Consumidor aqui!!!!!!!!!
     <div>
-
+        {{request.user.id}}
         {% for Lojistas in Lojistas %}
         <ul>
-            <li>
-                {{Lojistas}}--{{Lojistas.nomePizzaria}}--{{Lojistas.endereço}}</li>
+            <li><a href="{% url 'pedidos:url_perfil' Lojistas.id %}">{{Lojistas}}</a>--{{Lojistas.nomePizzaria}}--{{Lojistas.endereço}}</li>
+
         </ul>
         {% endfor %}
     </div>

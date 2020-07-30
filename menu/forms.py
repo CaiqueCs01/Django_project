@@ -7,6 +7,7 @@ class SaboresForm(forms.ModelForm):
     ingredientes = forms.CharField(max_length=200)
     preco = forms.CharField(max_length=10)
 
+
     class Meta:
         model = Sabores
         fields = ['nome', 'ingredientes', 'preco']

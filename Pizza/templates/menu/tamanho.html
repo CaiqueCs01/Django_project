@@ -5,8 +5,8 @@
 <body>
     <div class="item3">
         <ul>
-            {% for tamanho in tamanho %}
-            <li><a href="{% url 'menu:url_tamanhoUp' tamanho.id %}">{{tamanho}} -- <a class="close" href="{% url 'menu:url_tamanhoDel' tamanho.id %}">&times;</a></li>
+            {% for object_list in object_list %}
+            <li><a href="{% url 'menu:url_tamanhoUp' object_list.id %}">{{object_list}}  <a class="close" href="{% url 'menu:url_tamanhoDel' object_list.id %}">&times;</a></li>
             {% endfor %}
          </ul>
         <a href="{% url 'menu:url_tamanhoAdd' %}">Adicionar tamanho</a>
