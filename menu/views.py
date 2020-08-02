@@ -77,9 +77,7 @@ class MassaList(LoginRequiredMixin, ListView):
 
         return self.object_list
 
-"""
-o id do lojista tem que passa para a FK de sabores
-"""
+
 @login_required(login_url='Pizza:url_login')
 def massa_add(request):
     """Adiciona uma massa nova ao cardápio"""

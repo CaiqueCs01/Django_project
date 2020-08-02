@@ -1,3 +1,6 @@
+from collections import Iterable
+from urllib.parse import urlencode
+
 from django.contrib.auth.models import Group, User
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -31,8 +34,12 @@ def Registro(request):
 
                 print(request.user.id)
                 myGroup.user_set.add(request.user)
+                test = request.user.id
+                password = form.cleaned_data.get('password1')
+                account = authenticate(username=nome, password=password)
+                login(request, account)
                 form.save()
-                return redirect('Pizza:url_Loj')
+                return redirect(reverse('Pizza:url_Loj', kwargs={'pk':test}))
 
     context = {'form': form}
     return render(request, 'Pizza/Registro.html', context)
@@ -51,21 +58,15 @@ def CadConsumidor(request):
     return render(request, 'Pizza/CadConsumidor.html', data)
 
 
-def CadLojista(request, pk):
+def Cad_Lojista(request, pk):
     """Cadastra as informções adicionais do usuário/Lojista"""
     form = CadLojistaForm(request.POST or None)
-    #User = get_user_model()
-    #print(User.username,'aaaaaaa2')
-    #test = User.objects.get(username=get_user(request))
-    #print(test,'aaaaaa')
-    #print(request.user.id,'usuario')
+
     if form.is_valid():
-
-        print('aaaa')
         instance = form.save(commit=False)
-
         instance.user_id = pk
         instance.save()
+
         return redirect('menu:url_sabores')
     return render(request, "Pizza/CadLojista.html", {'form': form})
 
